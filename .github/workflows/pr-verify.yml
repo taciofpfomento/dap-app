@@ -1,19 +1,18 @@
 ---
-name: PR Verify
+name: PR Validation
 
 on:
   pull_request:
-    types: 
-    - opened
-    - edited
-    - synchronize
+    types: [ opened, synchronize, reopened, edited ]
 
 jobs:
-  pr-verify:
+  validate-pr-title:
     runs-on: ubuntu-latest
+    if: contains( github.event.pull_request.labels.*.name, 'autorelease:') != true
     steps:
-      - name: PR Conventional Commit Validation
-        uses:  ytanikin/pr-conventional-commits@1.4.0
+      - name: Conventional Commit Validation
+        uses: ytanikin/pr-conventional-commits@1.4.1
         with:
           task_types: '["feat","fix","docs","test","ci","refactor","perf","chore","revert"]'
-          add_label: 'true'
+          custom_labels: '{"feat": "feature", "fix": "fix", "docs": "documentation", "test": "test", "ci": "CI/CD", "refactor": "refactor", "perf": "performance", "chore": "chore", "revert": "revert", "wip": "WIP"}'
+          add_scope_label: 'true'

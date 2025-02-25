@@ -43,7 +43,7 @@
           run:  docker login --username ${{ secrets.DOCKER_USER }} --password ${{ secrets.DOCKER_PASSWORD }}
 
         - name: Docker pull
-          run: docker tcambafp/dap-app:latest
+          run: docker pull tcambafp/dap-app:latest
         
         - name: Docker stop
           run: docker stop dap-app

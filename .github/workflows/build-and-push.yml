@@ -49,5 +49,5 @@
           run: docker rm -f dap-app
 
         - name: Docker run
-          run: docker run -d -p 8080:80 --name dap-app
+          run: docker run -d -p 8080:80 --name dap-app tcambafp/dap-app:latest
   

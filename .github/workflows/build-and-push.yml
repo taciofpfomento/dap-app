@@ -36,18 +36,20 @@
     
     pull-and-run:
       runs-on: self-hosted
+      needs: 
+        - build-and-push
       steps:
         - name: Docker login
           run:  docker login --username ${{ secrets.DOCKER_USER }} --password ${{ secrets.DOCKER_PASSWORD }}
 
         - name: Docker pull
-          run: tcambafp/dap-app:latest
+          run: docker tcambafp/dap-app:latest
         
         - name: Docker stop
           run: docker stop dap-app
 
         - name: Docker remove
-          run: docker remove dap-app
+          run: docker rm dap-app
 
         - name: Docker run
           run: docker run -d -p 8080:80 --name dap-app

@@ -45,11 +45,8 @@
         - name: Docker pull
           run: docker pull tcambafp/dap-app:latest
         
-        - name: Docker stop
-          run: docker stop dap-app
-
         - name: Docker remove
-          run: docker rm dap-app
+          run: docker rm -f dap-app
 
         - name: Docker run
           run: docker run -d -p 8080:80 --name dap-app

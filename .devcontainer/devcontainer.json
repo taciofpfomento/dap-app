@@ -1,0 +1,51 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.222.0/containers/python-3-miniconda
+{
+	"name": "Python Environment",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+	"features": {
+		"ghcr.io/dhoeric/features/hadolint:1": {},
+		"ghcr.io/devcontainers-extra/features/pnpm:2": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"azemoh.one-monokai",
+				"formulahendry.auto-rename-tag",
+				"oderwat.indent-rainbow",
+				"GitHub.vscode-pull-request-github",
+				"mosapride.zenkaku",
+				"ms-python.python",
+				"charliermarsh.ruff",
+				"kevinrose.vsc-python-indent",
+				"njpwerner.autodocstring",
+				"usernamehw.errorlens"
+			],
+			"settings": {
+				"python.terminal.activateEnvInCurrentTerminal": true,
+				"python.defaultInterpreterPath": ".venv/bin/python",
+				"[python]": {
+					"editor.defaultFormatter": "charliermarsh.ruff",
+					"editor.codeActionsOnSave": {
+						"source.fixAll.ruff": "explicit",
+						"source.organizeImports.ruff": "explicit"
+					}
+				},
+				"editor.wordWrap": "on",
+				"editor.formatOnSave": true,
+				"files.insertFinalNewline": true,
+				"files.trimTrailingWhitespace": true,
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.profiles.linux": {
+					"zsh": {
+						"path": "/bin/zsh"
+					}
+				}
+			}
+		}
+	},
+	"remoteUser": "root"
+}

@@ -1,4 +1,6 @@
+from typing import Union
 from main import app
+from fastapi.responses import HTMLResponse
 
 @app.get("/{adjetivo}")
 def read_root(adjetivo: str):

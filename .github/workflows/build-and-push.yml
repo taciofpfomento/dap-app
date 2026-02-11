@@ -2,10 +2,6 @@
   name: Build & Push
   
   on:
-    push:
-      branches:
-        - main
-
     workflow_dispatch:
   
   jobs:
@@ -31,23 +27,9 @@
           uses: docker/build-push-action@v6
           with:
             context: .
+            file: Dockerfile.db
             push: true
-            tags: tcambafp/dap-app:latest
-    
-    pull-and-run:
-      runs-on: self-hosted
-      needs: 
-        - build-and-push
-      steps:
-        - name: Docker login
-          run:  docker login --username ${{ secrets.DOCKER_USER }} --password ${{ secrets.DOCKER_PASSWORD }}
-
-        - name: Docker pull
-          run: docker pull tcambafp/dap-app:latest
-        
-        - name: Docker remove
-          run: docker rm -f dap-app
-
-        - name: Docker run
-          run: docker run -d -p 8080:80 --name dap-app tcambafp/dap-app:latest
+            build-args: |
+              BUILD_VERSION=latest
+            tags: tcamba/dap-app-sampledb:latest
   

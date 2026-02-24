@@ -1,16 +1,17 @@
-ARG BUILD_VERSION="latest"
-
-###### BUILD STAGE #######
-FROM ubuntu:${BUILD_VERSION} as build
-
-ARG SAMPLE_DB_URL="https://edu.postgrespro.com/demo-small-en.zip"
+## DEPS
+FROM debian:12-slim as deps
 
 RUN apt update && apt install curl unzip -y
+
+## BUILD
+FROM deps as build
+
+ARG SAMPLE_DB_URL="https://edu.postgrespro.com/demo-small-en.zip"
 
 RUN curl -o /sample.zip ${SAMPLE_DB_URL}
 RUN unzip /sample.zip -d sampledb && sed -i 's/DROP DATABASE demo;//g' sampledb/*.sql
 
-###### RUN STAGE #######
-FROM postgres:17-alpine3.23@sha256:bb377b7239d2774ac8cc76f481596ce96c5a6b5e9d141f6d0a0ee371a6e7c0f2
+## RUN
+FROM postgres:17-alpine3.23
 
-COPY --from=build /sampledb ./docker-entrypoint-initdb.d
+COPY --from=build  /sampledb ./docker-entrypoint-initdb.d

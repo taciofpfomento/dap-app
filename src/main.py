@@ -1,12 +1,7 @@
-from functools import cache
-from typing import Union
-
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
 import uvicorn
 from health.router import health_router
 from flights.router import flights_router
-from settings import get_settings
 
 _app = FastAPI()
 

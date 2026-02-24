@@ -5,13 +5,14 @@ from flights.infra import create_db_pool
 from flights.repository import create_repo
 from flights.service import create_service
 
+_pool = create_db_pool()
+_repo= create_repo(pool=_pool)
+_svc = create_service(repo=_repo)
+
 flights_router = APIRouter()
 
 @flights_router.get("/flights")
 async def get_flight() -> JSONResponse:
-  pool = create_db_pool()
-  svc = create_service(repo=create_repo(pool=pool))
-
-  await svc.Retrieve()
+  await _svc.Retrieve()
 
   return JSONResponse()

@@ -1,6 +1,7 @@
 
 from typing import Protocol
 from asyncpg.pool import Pool
+from functools import cache
 
 
 class Repo(Protocol):
@@ -8,6 +9,8 @@ class Repo(Protocol):
     pass
   
 class _Repository(Repo):
+    db_pool: Pool
+    
     def __init__(self, db_pool: Pool) -> None:
       self.db_pool = db_pool
 
@@ -17,5 +20,6 @@ class _Repository(Repo):
           result = await conn.fetch('SELECT * FROM bookings.flights WHERE flight_id = $1', 1)
           print(result)
 
+@cache
 def create_repo(pool: Pool) -> Repo:
     return _Repository(db_pool=pool)

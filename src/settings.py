@@ -13,7 +13,7 @@ class ServiceSettings(BaseSettings):
     )
 
   environment: str
-  flight_db_dsn: PostgresDsn
+  flight_db_dsn: str
 
 @cache
 def get_settings() -> ServiceSettings:

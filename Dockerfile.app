@@ -26,4 +26,7 @@ COPY --chown=nonroot:nonroot src/ /app
 
 ENV PATH="/app/.venv/bin:$PATH"
 
-ENTRYPOINT ["python", "main.py"]
+# ENTRYPOINT ["/busybox/sh", "-c"]
+# CMD ["tail -f /dev/null"]
+
+CMD ["python", "main.py"]

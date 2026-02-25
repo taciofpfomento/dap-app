@@ -4,7 +4,7 @@ from flights.repository import Repo
 from functools import cache
 
 class Svc(Protocol):
-    async def Retrieve(self) -> None:
+    async def Retrieve(self, id: int) -> dict:
         ...
 
 class _Service(Svc):
@@ -13,8 +13,8 @@ class _Service(Svc):
     def __init__(self, repo: Repo) -> None:
         self.repo = repo
 
-    async def Retrieve(self) -> None:        
-        await self.repo.Retrieve()
+    async def Retrieve(self, id: int) -> dict:        
+        return await self.repo.Retrieve(id)
 
 @cache
 def create_service(repo: Repo) -> Svc:

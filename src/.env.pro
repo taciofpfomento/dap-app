@@ -1,1 +1,2 @@
 SERVICE_SETTING_ENVIRONMENT="pro"
+SERVICE_SETTING_FLIGHT_DB_DSN="postgres://postgres:test1234@dap-app-db:5432/demo"
